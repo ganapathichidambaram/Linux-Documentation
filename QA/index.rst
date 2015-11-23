@@ -24,6 +24,10 @@ Log Rotation
 
 
 
+	#. How to find and replace the content from all the available files in a directory.?
+
+		grep -rl sourcecontent . | xargs sed -i 's/sourcecontent/destcontent/g'
+
 Users and Groups
 ---------------------
 
