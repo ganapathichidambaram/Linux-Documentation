@@ -294,7 +294,7 @@ Creating a FileSystem
 
 			Disk partition name on the disk should going to build the filesystem.
 
-		-n 
+		- n 
 
 			Sets the volume name (label) of the filesystem. The volume name can
            		be up to 11 characters long. The default is no label.DiskName is the name which you required for the filesystem.
