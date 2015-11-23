@@ -4,14 +4,14 @@ Linux File System
 What is File System
 --------------------------
 
-	File System is a methods and structure of data that an operating system used to keep track the files and control the data are organized in the disk or partition.
+        File System is a methods and structure of data that an operating system used to keep track the files and control the data are organized in the disk or partition.
 
-	File system logically defined the files in the disk by mentioned below :
+        File system logically defined the files in the disk by mentioned below :
 
-		- **Sharable** - It can be accessed locally or by remote host.
-		- **unsharable** - Only It can be accessed locally.
-		- **Variable** - These files can able to change at any time such as documents.
-		- **Static** - Static Binaries which is do not change without administrator permission.It used to execute the program to the user.
+                - **Sharable** - It can be accessed locally or by remote host.
+                - **unsharable** - Only It can be accessed locally.
+                - **Variable** - These files can able to change at any time such as documents.
+                - **Static** - Static Binaries which is do not change without administrator permission.It used to execute the program to the user.
 
 
 Types of File systems
