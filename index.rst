@@ -1,10 +1,9 @@
-.. Linux documentation master file, created by
-   sphinx-quickstart on Tue Jun 30 19:51:09 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
 Welcome to Linux's documentation!
 =================================
+
+Linux Documentation by TechnoBureau. It Provides various important Linux Topic and details information about the same and qiestions and 
+sections on each.
 
 .. toctree::
    :maxdepth: 2
@@ -17,3 +16,14 @@ Welcome to Linux's documentation!
    LVM/index
    SSH/index
    QA/index
+
+.. contents::
+    :local:
+    :depth: 2
+    :backlinks: none
+
+:Author: `Ganapathi Chidambaram <https://github.com/ganapathichidambaram>`_.     
+:Date: |today|
+:Version: |version|
+
+   

@@ -276,6 +276,7 @@ Creating a FileSystem
 		mkfs 
 
 			mkfs is used to build a Linux filesystem on a device, usually a hard disk partition. The device argument is either the device name (e.g. /dev/hda1, /dev/sdb2), or a regular file that shall contain the filesystem. The size argument is the number of blocks to be used for the filesystem.
+			
 		vfat
 
 			Formats the drive to FAT32 as filesystem type.And other formats available are 
