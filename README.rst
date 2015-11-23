@@ -17,10 +17,6 @@ sections on each.
    SSH/index
    QA/index
 
-.. contents::
-    :local:
-    :depth: 2
-    :backlinks: none
 
 :Author: `Ganapathi Chidambaram <https://github.com/ganapathichidambaram>`_.     
 :Date: |today|
