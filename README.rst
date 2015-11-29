@@ -9,6 +9,7 @@ sections on each.
    :maxdepth: 2
  
    BootProcess/index
+   Users/index
    FileSystem/index
    RAID/index
    NFS/index
