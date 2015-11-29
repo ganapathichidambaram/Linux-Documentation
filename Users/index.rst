@@ -482,4 +482,34 @@ User Modification
            The password will be written in the local /etc/passwd or /etc/shadow file. This might differ from the password database 
            configured in your PAM configuration.
 
-         
+
+Password Aging
+---------------
+
+	For security reasons, it is advisable to require users to change their passwords periodically.To configure password expiration 
+	for a user from a shell prompt, use the chage command, followed by an option which is mentioned below ,followed by the 
+	username of the user.
+
+	 - **-m<days>**
+
+		Specifies the minimum number of days between which the user must change passwords. If the value is 0, the password does not expire.
+
+ 	 - **-M<days>**
+
+		Specifies the maximum number of days for which the password is valid. When the number of days specified by this option plus the number of days specified with the -d option is less than the current day, the user must change passwords before using the account.
+	
+	 - **-d<days>**
+
+		Specifies the number of days since January 1, 1970 the password was changed
+	
+	 - **-I<days>**
+
+		Specifies the number of inactive days after the password expiration before locking the account. If the value is 0, the account is not locked after the password expires.
+	
+	 - **-E<date>**
+
+		Specifies the date on which the account is locked, in the format YYYY-MM-DD. Instead of the date, the number of days since January 1, 1970 can also be used.
+	
+	 - **-W<days>**
+
+		Specifies the number of days before the password expiration date to warn the user.
