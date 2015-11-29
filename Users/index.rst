@@ -393,3 +393,93 @@ addgroup Options
 	- **-g<gid>**	
 
 		Group ID for the group, which must be unique and greater than 499
+
+
+User Modification
+-----------------------
+
+	By usermod command we can modify the existing available users on the system with help of below configuration.
+
+	 - **-a, --append**
+
+           Add the user to the supplementary group(s). Use only with the -G option.
+
+         - **-c, --comment COMMENT**
+
+           The new value of the user's password file comment field. It is normally modified using the chfn(1) utility.
+
+         - **-d, --home HOME_DIR**
+
+           The user's new login directory.
+
+           If the -m option is given, the contents of the current home directory will be moved to the new home directory, which is 
+           created if it does not already exist.
+
+         - **-e, --expiredate EXPIRE_DATE**
+         
+           The date on which the user account will be disabled. The date is specified in the format YYYY-MM-DD.
+
+           An empty EXPIRE_DATE argument will disable the expiration of the account.
+
+           This option requires a /etc/shadow file. A /etc/shadow entry will be created if there were none.
+
+         - **-f, --inactive INACTIVE**
+         
+           The number of days after a password expires until the account is permanently disabled.
+
+           A value of 0 disables the account as soon as the password has expired, and a value of -1 disables the feature.
+
+           This option requires a /etc/shadow file. A /etc/shadow entry will be created if there were none.
+
+         - **-g, --gid GROUP**
+         
+           The group name or number of the user's new initial login group. The group must exist.
+
+           Any file from the user's home directory owned by the previous primary group of the user will be owned by this new group.
+
+           The group ownership of files outside of the user's home directory must be fixed manually.
+
+         - **-G, --groups GROUP1[,GROUP2,...[,GROUPN]]]**
+         
+           A list of supplementary groups which the user is also a member of. Each group is separated from the next by a comma, with no
+           intervening whitespace. The groups are subject to the same restrictions as the group given with the -g option.
+
+           If the user is currently a member of a group which is not listed, the user will be removed from the group. This behaviour 
+           can be changed via the -a option, which appends the user to the current supplementary group list.
+
+         - **-l, --login NEW_LOGIN**
+         
+           The name of the user will be changed from LOGIN to NEW_LOGIN. Nothing else is changed. In particular, the user's home 
+           directory or mail spool should probably be renamed manually to reflect the new login name.
+
+         - **-L, --lock**
+         
+           Lock a user's password. This puts a '!' in front of the encrypted password, effectively disabling the password. You can't 
+           use this option with -p or -U.
+
+           Note: if you wish to lock the account (not only access with a password), you should also set the EXPIRE_DATE to 1.
+
+         - **-m, --move-home**
+         
+           Move the content of the user's home directory to the new location.
+
+           This option is only valid in combination with the -d (or --home) option.
+
+           usermod will try to adapt the ownership of the files and to copy the modes, ACL and extended attributes, but manual changes 
+           might be needed afterwards.
+
+         - **-o, --non-unique**
+         
+           When used with the -u option, this option allows to change the user ID to a non-unique value.
+
+         - **-p, --password PASSWORD**
+         
+           The encrypted password, as returned by crypt(3).
+
+           Note: This option is not recommended because the password (or encrypted password) will be visible by users listing the 
+           processes.
+
+           The password will be written in the local /etc/passwd or /etc/shadow file. This might differ from the password database 
+           configured in your PAM configuration.
+
+         
