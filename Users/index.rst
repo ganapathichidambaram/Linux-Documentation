@@ -129,6 +129,12 @@ Users and Groups
 
 		- **FAILLOG_ENABLE** : Enable logging and display of /var/log/faillog login failure info.
 
+		- **LOGIN_RETRIES** : Max number of login retries if password is bad. This will most likely be overriden by PAM, since
+		  the default pam_unix module has it's own built in of 3 retries. However, this is a safe fallback in case you are 
+		  using an authentication module that does not enforce PAM_MAXTRIES.
+
+		- **LOGIN_TIMEOUT** : Max time in seconds for login. 
+
 		- **GID_MAX (number), GID_MIN (number)** : Range of group IDs to choose from for the useradd and groupadd programs.
 
 		- **MAIL_DIR (string)** : The mail spool directory. This is needed to manipulate the mailbox when its corresponding user account is modified or deleted. If not specified, a compile-time default is used.
@@ -159,3 +165,231 @@ Users and Groups
 			- usermod MAIL_DIR
 
 
+Adding a New User 
+-------------------
+
+	To create a new standard user, we should use the `useradd` command and for the syntax is as follows:
+
+		.. code:: bash 
+		  
+		 useradd <name>
+	 	 adduser <name>
+
+	These mentioned Process would happen for Every newly created user.
+
+		- Would create the Home Directory for the user.
+		- Copy the Below mentioned Files on their Home Directory.
+
+      		   .. code:: bash 
+	   		  
+			.bash_logout
+			.bash_profile
+			.bashrc
+
+		- Would create the Mail Spool directory for the user.
+		- A group would create automatically in the same name of user.
+
+	adduser command is an interactive mode of user creation.Along with user creation would ask for password to set,and gecos 
+	information for the user(Full Name,Room Number,Work Phone,Home Phone) to store into /etc/passwd file.
+
+
+Useradd Options 
+*****************
+
+ 	 - **-d --home <home_dir>**
+ 	   	
+ 	   	home\_dir will be used as the value for the user’s login directory   
+ 	    
+ 	    	Syntax : 
+ 	    		.. code:: bash 
+
+ 	    		 useradd <name> -d /home/<user's home>
+
+	 - **-e --expiredate <date>**  
+
+	 	the date when the account will expire                                
+
+	   	Syntax : 
+	   		.. code:: bash 
+
+	   		  useradd <name>** -e <YYYY-MM-DD>       
+
+ 	 - **-f --inactive <inactive>**  
+  		
+  		the number of days before the account expires                   
+
+  		Syntax :
+	   		.. code:: bash 
+
+	   		  useradd <name> -f <0 or -1> 
+
+	 - **-k, --skel <SKEL_DIR>**
+           
+           	The skeleton directory, which contains files and directories to be copied in the user's home directory, when the home 
+           	directory is created by useradd.
+
+           	This option is only valid if the -m (or --create-home) option is specified.
+
+           	If this option is not set, the skeleton directory is defined by the SKEL variable in /etc/default/useradd or, by 
+           	default, /etc/skel.
+
+           	If possible, the ACLs and extended attributes are copied.
+
+	 - **-K, --key KEY=VALUE**
+           
+           	Overrides /etc/login.defs defaults (UID_MIN, UID_MAX, UMASK, PASS_MAX_DAYS and others).
+
+           	Example: 
+
+           	-K PASS_MAX_DAYS=-1 can be used when creating system account to turn off password ageing, even though system           account has no password at all. Multiple -K options can be specified, e.g.: -K UID_MIN=100-K UID_MAX=499
+
+	 - **-k, --skel SKEL_DIR**
+
+           	The skeleton directory, which contains files and directories to be copied in the user's home directory, when the home directory is created by useradd.
+
+           	This option is only valid if the -m (or --create-home) option is specified.
+
+           	If this option is not set, the skeleton directory is defined by the SKEL variable in /etc/default/useradd or, by default, /etc/skel.
+
+           	If possible, the ACLs and extended attributes are copied.
+
+         - **-m, --create-home**
+           	
+           	Create the user's home directory if it does not exist. The files and directories contained in the skeleton directory (which can be defined with the -k option) will be copied to the home directory.
+
+           	By default, if this option is not specified and CREATE_HOME is not enabled, no home directories are created.
+
+         - **-M**
+
+         	  Do no create the user's home directory, even if the system wide setting from /etc/login.defs (CREATE_HOME) is set to yes.
+
+         - **-N, --no-user-group**
+           
+           	Do not create a group with the same name as the user, but add the user to the group specified by the -g option or by the GROUP variable in /etc/default/useradd.
+
+           	The default behavior (if the -g, -N, and -U options are not specified) is defined by the USERGROUPS_ENAB variable in
+           	/etc/login.defs.
+
+         - **-o, --non-unique**
+        
+           	Allow the creation of a user account with a duplicate (non-unique) UID.
+
+           	This option is only valid in combination with the -u option.
+
+         - **-p, --password PASSWORD**
+
+           	The encrypted password, as returned by crypt(3). The default is to disable the password.
+
+           	Note: This option is not recommended because the password (or encrypted password) will be visible by users listing the processes.
+
+           	You should make sure the password respects the system's password policy.
+
+         - **-r, --system**
+
+           	Create a system account.
+
+           	System users will be created with no aging information in /etc/shadow, and their numeric identifiers are chosen in the
+           	SYS_UID_MIN-SYS_UID_MAX range, defined in /etc/login.defs, instead of UID_MIN-UID_MAX (and their GID counterparts for the creation of groups).
+
+           	Note that useradd will not create a home directory for such an user, regardless of the default setting in /etc/login.defs (CREATE_HOME). You have to specify the -m options if you want a home directory for a system account to be created.
+
+         - **-R, --root CHROOT_DIR**
+         
+           	Apply changes in the CHROOT_DIR directory and use the configuration files from the CHROOT_DIR directory.
+
+         - **-s, --shell SHELL**
+         
+           	The name of the user's login shell. The default is to leave this field blank, which causes the system to select the default login shell specified by the SHELL variable in /etc/default/useradd, or an empty string by default.
+
+           	Syntax :
+	   		.. code:: bash 
+
+	   		  useradd <name> -s /bin/<shell> 
+
+         - **-u, --uid UID**
+         
+           	The numerical value of the user's ID. This value must be unique, unless the -o option is used. The value must be non-negative. The default is to use the smallest ID value greater than or equal to UID_MIN and greater than every other user.
+
+           	See also the -r option and the UID_MAX description.
+
+         - **-U, --user-group**
+         
+        	Create a group with the same name as the user, and add the user to this group.
+
+        	The default behavior (if the -g, -N, and -U options are not specified) is defined by the USERGROUPS_ENAB variable in
+           	/etc/login.defs.
+
+
+adduser Options 
+*******************
+
+	- **--conf FILE**
+
+              Use FILE instead of /etc/adduser.conf.
+
+       	- **--disabled-login**
+
+              Do not run passwd to set the password.  The user won't be able to use her account until the password is set.
+
+       	- **--disabled-password**
+
+              Like --disabled-login, but logins are still possible (for example using SSH RSA keys) but not using password authentication.
+
+       	- **--force-badname**
+
+              By  default,  user  and  group names are checked against the configurable regular expression NAME_REGEX (or NAME_REGEX_SYSTEM if
+              --system is specified) specified in the configuration file. This option forces adduser and addgroup to apply only a  weak  check
+              for validity of the name.
+
+       	- **--gecos GECOS**
+
+              Set the gecos field for the new entry generated.  adduser will not ask for finger information if this option is given.
+
+       	- **--gid ID**
+
+              When  creating  a  group, this option forces the new groupid to be the given number.  When creating a user, this option will put
+              the user in that group.
+
+       	- **--group**
+        
+              When combined with --system, a group with the same name and ID as the system user is created.  If not combined with --system,  a
+              group with the given name is created.  This is the default action if the program is invoked as addgroup.
+
+       	- **--home DIR**
+        
+              Use  DIR  as  the user's home directory, rather than the default specified by the configuration file.  If the directory does not
+              exist, it is created and skeleton files are copied.
+
+
+Adding a Group
+----------------
+
+	To add a group to the system, use the command groupadd/addgroup and syntax as follows :
+
+	 .. code:: bash
+
+	    groupadd <group-name>
+	    addgroup <group-name>
+
+
+groupadd Options
+*******************
+
+	- **-g<gid>**	
+
+		Group ID for the group, which must be unique and greater than 499
+
+	- **-r**	
+		
+		Create a system group with a GID less than 500
+
+	- **-f**	
+
+		When used with -g<gid> and <gid> already exists, groupadd will choose another unique <gid> for the group.
+
+addgroup Options
+*******************
+
+	- **-g<gid>**	
+
+		Group ID for the group, which must be unique and greater than 499

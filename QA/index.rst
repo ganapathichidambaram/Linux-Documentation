@@ -55,6 +55,15 @@ Users and Groups
 
 
 
+	#. How to get non-root user's User ID ?
+
+		 awk -F: '{ if ( $3 >1000 ) print $1}' /etc/passwd
+
+		It would separate content by field separator(:) and third field value(UserID) is greater than 1000(non-root) then 
+		print the first field value(UserID) from the /etc/passwd file
+
+
+
 FileSystem
 ---------------------
 
